@@ -23,25 +23,19 @@ export default function Movies() {
         fetchMovies();
     }, []);
 
-    // Friendly message when not logged in
-    if (!user.id) {
-        return (
-            <Container className="mt-5 text-center">
-                <h1>Welcome to our Movie Catalog!</h1>
-                <p>It looks like you’re not logged in. Please log in to explore our amazing movies.</p>
-                <Link to="/login">
-                    <Button variant="primary">Log In to Discover More</Button>
-                </Link>
-            </Container>
-        );
-    }
-
     return (
         <Container className="mt-5 text-center">
-            {user.isAdmin ? (
-                <AdminView moviesData={moviesData} />
+            <h1>Welcome to our Movie Catalog!</h1>
+            {moviesData.length > 0 ? (
+                <>
+                    {user.isAdmin ? (
+                        <AdminView moviesData={moviesData} />
+                    ) : (
+                        <UserView moviesData={moviesData} />
+                    )}
+                </>
             ) : (
-                <UserView moviesData={moviesData} />
+                <p>No movies available at the moment. Please check back later.</p>
             )}
         </Container>
     );

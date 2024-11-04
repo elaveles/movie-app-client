@@ -21,7 +21,6 @@ export default function UserCatalog() {
 
     return (
         <Container className="mt-5">
-            <h1 className="text-center my-4">Movie Catalog</h1>
             <Row>
                 {movies.length > 0 ? (
                     movies.map(movie => (
