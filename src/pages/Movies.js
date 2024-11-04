@@ -2,8 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import UserContext from '../context/UserContext';
 import AdminView from '../components/AdminView';
 import UserView from '../components/UserView';
-import { Container, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 
 export default function Movies() {
     const { user } = useContext(UserContext);
