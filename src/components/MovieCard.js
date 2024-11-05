@@ -1,8 +1,18 @@
 import { Card, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import UserContext from '../context/UserContext';
 
 export default function MovieCard({ movie }) {
     const { _id, title, director, year, description, genre } = movie;
+    const { user } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    const handleViewDetails = () => {
+        if (!user || !user.id) {
+            navigate('/login');
+        }
+    };
 
     return (
         <Card className="mt-3">
@@ -16,9 +26,16 @@ export default function MovieCard({ movie }) {
                 <Card.Text>{description}</Card.Text>
                 <Card.Subtitle>Genre:</Card.Subtitle>
                 <Card.Text>{genre}</Card.Text>
-                <Link to={`/movies/${_id}`}>
-                    <Button variant="danger">View Details</Button>
-                </Link>
+
+                {user && user.id ? (
+                    <Link to={`/movies/${_id}`}>
+                        <Button variant="danger">View Details</Button>
+                    </Link>
+                ) : (
+                    <Button variant="warning" onClick={handleViewDetails}>
+                        Login to View Details
+                    </Button>
+                )}
             </Card.Body>
         </Card>
     );
