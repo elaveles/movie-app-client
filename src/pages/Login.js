@@ -20,8 +20,6 @@ export default function Login() {
         setError(null);
 
         try {
-            // Log the API URL for debugging
-            console.log('Login URL:', `${process.env.REACT_APP_API_URL}/users/login`);
 
             const response = await fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
                 method: 'POST',
@@ -32,14 +30,8 @@ export default function Login() {
                 body: JSON.stringify({ email, password })
             });
 
-            // Log response details for debugging
-            console.log('Login response status:', response.status);
-            console.log('Login response headers:', [...response.headers.entries()]);
-
             const text = await response.text();
-            console.log('Login response text:', text);
 
-            // Only try to parse if we have content
             if (!text) {
                 throw new Error('Empty response from server');
             }

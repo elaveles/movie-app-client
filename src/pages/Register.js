@@ -14,26 +14,19 @@ export default function Register() {
     const [isActive, setIsActive] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Debug log for environment variable
-    console.log('API URL:', process.env.REACT_APP_API_URL);
-
     async function registerUser(e) {
         e.preventDefault();
         setIsLoading(true);
 
         const apiUrl = process.env.REACT_APP_API_URL;
         const fullUrl = `${apiUrl}/users/register`;
-        
-        // Debug logs
-        console.log('Full API URL:', fullUrl);
-        console.log('Request payload:', { email, password });
+    
 
         try {
             const response = await fetch(fullUrl, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
-                    // Add this to debug CORS issues
                     'Accept': 'application/json',
                 },
                 body: JSON.stringify({
@@ -42,15 +35,8 @@ export default function Register() {
                 })
             });
 
-            // Log the raw response
-            console.log('Response status:', response.status);
-            console.log('Response headers:', [...response.headers.entries()]);
-
-            // Try to get the response text first
             const responseText = await response.text();
-            console.log('Response text:', responseText);
 
-            // Only try to parse as JSON if it looks like JSON
             let data;
             try {
                 data = JSON.parse(responseText);

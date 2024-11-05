@@ -13,32 +13,22 @@ export default function Movies() {
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                // Log the API URL for debugging
-                console.log('Fetching movies from:', `${process.env.REACT_APP_API_URL}/movies/getMovies`);
                 
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/movies/getMovies`, {
                     headers: {
                         'Accept': 'application/json',
-                        // Add auth token if required
                         ...(localStorage.getItem('token') && {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
                         })
                     }
                 });
 
-                // Log response status and headers for debugging
-                console.log('Response status:', response.status);
-                console.log('Response headers:', [...response.headers.entries()]);
-
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                // Get response as text first
                 const text = await response.text();
-                console.log('Response text:', text);
 
-                // Try to parse as JSON
                 const data = JSON.parse(text);
                 setMoviesData(data.movies || []);
             } catch (error) {
