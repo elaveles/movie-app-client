@@ -62,13 +62,15 @@ export default function Movies() {
 
     return (
         <Container className="mt-5 text-center">
-            <h1>Welcome to our Movie Catalog!</h1>
             {moviesData.length > 0 ? (
                 <>
                     {user.isAdmin ? (
                         <AdminView moviesData={moviesData} />
                     ) : (
+                    <>
+                        <h1>Welcome to our Movie Catalog!</h1>
                         <UserView moviesData={moviesData} />
+                    </>
                     )}
                 </>
             ) : (
